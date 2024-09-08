@@ -1,0 +1,55 @@
+def get_happiness_index(sleep_hours, exercise_hours, work_life_balance, personal_satisfaction):
+    """
+    This function calculates a 'Happiness Index' based on simple parameters.
+    
+    Parameters:
+    sleep_hours: Number of hours you sleep (ideally 7-9 hours)
+    exercise_hours: Number of hours you exercise (ideally 1 hour)
+    work_life_balance: Scale of 1-10, 10 being excellent balance
+    personal_satisfaction: Scale of 1-10, 10 being fully satisfied
+    
+    Returns:
+    Happiness Index (out of 100)
+    """
+    # Ensure inputs are in acceptable ranges
+    sleep_score = max(0, min(10, (sleep_hours / 9) * 10))  # sleep ideal is 7-9 hours
+    exercise_score = max(0, min(10, (exercise_hours / 1) * 10))  # ideal is 1 hour/day
+    balance_score = max(0, min(10, work_life_balance))  # max score is 10
+    satisfaction_score = max(0, min(10, personal_satisfaction))  # max score is 10
+    
+    # Weighted calculation for Happiness Index
+    happiness_index = (sleep_score * 0.3 + exercise_score * 0.2 + 
+                       balance_score * 0.3 + satisfaction_score * 0.2) * 10
+    return round(happiness_index, 2)
+
+
+def display_happiness_face(happiness_index):
+    """
+    This function prints a visual representation of happiness based on the index.
+    
+    Parameters:
+    happiness_index: Calculated Happiness Index
+    
+    Output:
+    Smiley or sad face based on the index
+    """
+    if happiness_index >= 75:
+        print(":D You're happy! Happiness Index:", happiness_index)
+    elif 50 <= happiness_index < 75:
+        print(":) You're doing okay! Happiness Index:", happiness_index)
+    else:
+        print(":( Try to improve. Happiness Index:", happiness_index)
+
+
+if __name__ == "__main__":
+    # Input from the user
+    sleep_hours = float(input("Enter how many hours you sleep per day: "))
+    exercise_hours = float(input("Enter how many hours you exercise per day: "))
+    work_life_balance = float(input("Rate your work-life balance on a scale of 1-10: "))
+    personal_satisfaction = float(input("Rate your personal satisfaction on a scale of 1-10: "))
+    
+    # Calculate happiness index
+    happiness_index = get_happiness_index(sleep_hours, exercise_hours, work_life_balance, personal_satisfaction)
+    
+    # Display the result with a visual smiley/sad face
+    display_happiness_face(happiness_index)
